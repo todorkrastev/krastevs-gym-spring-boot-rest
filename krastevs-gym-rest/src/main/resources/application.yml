@@ -1,0 +1,20 @@
+spring:
+    datasource:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/krastevs_gym_rest_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+        username: ${db_username}
+        password: ${db_password}
+    #    sql:
+    #        init:
+    #            mode: always
+    jpa:
+        hibernate:
+            ddl-auto: update
+        open-in-view: false
+        properties:
+            hibernate:
+                show_sql: true
+                format_sql: true
+        defer-datasource-initialization: true
+server:
+    port: 8081
