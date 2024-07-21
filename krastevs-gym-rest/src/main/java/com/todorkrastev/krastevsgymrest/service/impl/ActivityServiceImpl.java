@@ -42,18 +42,16 @@ public class ActivityServiceImpl implements ActivityService {
 
         Activity activity = this.modelMapper.map(updateActivity, Activity.class);
         Activity saved = this.activityRepository.save(activity);
-        ActivityDTO mapped = this.modelMapper.map(saved, ActivityDTO.class);
 
-        return mapped;
+        return this.modelMapper.map(saved, ActivityDTO.class);
     }
 
     @Override
     public ActivityDTO createActivity(ActivityDTO newActivity) {
         Activity activity = this.modelMapper.map(newActivity, Activity.class);
         Activity saved = this.activityRepository.save(activity);
-        ActivityDTO mapped = this.modelMapper.map(saved, ActivityDTO.class);
 
-        return mapped;
+        return this.modelMapper.map(saved, ActivityDTO.class);
     }
 
     @Override

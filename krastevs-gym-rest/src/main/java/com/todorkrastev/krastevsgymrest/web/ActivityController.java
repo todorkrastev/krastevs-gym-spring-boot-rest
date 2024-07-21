@@ -57,7 +57,6 @@ public class ActivityController {
         ).body(activityDTO);
     }
 
-    // deleteActivityById
     @DeleteMapping("/{id}")
     public ResponseEntity<ActivityDTO> deleteActivityById(@PathVariable("id") Long activityId) {
         this.activityService.deleteActivityById(activityId);
