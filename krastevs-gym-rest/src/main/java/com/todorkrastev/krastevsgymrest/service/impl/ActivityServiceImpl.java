@@ -1,13 +1,14 @@
 package com.todorkrastev.krastevsgymrest.service.impl;
 
+import com.todorkrastev.krastevsgymrest.exception.ResourceNotFoundException;
 import com.todorkrastev.krastevsgymrest.model.dto.ActivityDTO;
+import com.todorkrastev.krastevsgymrest.model.entity.Activity;
 import com.todorkrastev.krastevsgymrest.repository.ActivityRepository;
 import com.todorkrastev.krastevsgymrest.service.ActivityService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
@@ -20,35 +21,45 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Set<ActivityDTO> findAll() {
-        Set<ActivityDTO> test = activityRepository
+    public List<ActivityDTO> findAll() {
+        return this.activityRepository
                 .findAllByOrderByIdAsc()
                 .stream()
-                .map(activity -> modelMapper.map(activity, ActivityDTO.class))
-                .collect(Collectors.toSet());
-
-        System.out.println(test);
-
-        return test;
+                .map(activity -> this.modelMapper.map(activity, ActivityDTO.class))
+                .toList();
     }
 
     @Override
     public ActivityDTO getActivityById(Long activityId) {
-        return null;
+        Activity activity = this.activityRepository.findById(activityId).orElseThrow(() -> new ResourceNotFoundException("Activity", "id", activityId));
+
+        return this.modelMapper.map(activity, ActivityDTO.class);
     }
 
     @Override
-    public ActivityDTO updateActivityById(Long activityId, ActivityDTO activityDTO) {
-        return null;
+    public ActivityDTO updateActivityById(Long activityId, ActivityDTO updateActivity) {
+        this.activityRepository.findById(activityId).orElseThrow(() -> new ResourceNotFoundException("Activity", "id", activityId));
+
+        Activity activity = this.modelMapper.map(updateActivity, Activity.class);
+        Activity saved = this.activityRepository.save(activity);
+        ActivityDTO mapped = this.modelMapper.map(saved, ActivityDTO.class);
+
+        return mapped;
     }
 
     @Override
-    public Long createActivity(ActivityDTO newActivity) {
-        return 0L;
+    public ActivityDTO createActivity(ActivityDTO newActivity) {
+        Activity activity = this.modelMapper.map(newActivity, Activity.class);
+        Activity saved = this.activityRepository.save(activity);
+        ActivityDTO mapped = this.modelMapper.map(saved, ActivityDTO.class);
+
+        return mapped;
     }
 
     @Override
     public void deleteActivityById(Long activityId) {
+        this.activityRepository.findById(activityId).orElseThrow(() -> new ResourceNotFoundException("Activity", "id", activityId));
 
+        this.activityRepository.deleteById(activityId);
     }
 }

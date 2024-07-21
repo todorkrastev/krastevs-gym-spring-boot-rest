@@ -5,10 +5,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Set;
+import java.util.List;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     @Query("select a from Activity a order by a.id asc")
-    Set<Activity> findAllByOrderByIdAsc();
+    List<Activity> findAllByOrderByIdAsc();
 }

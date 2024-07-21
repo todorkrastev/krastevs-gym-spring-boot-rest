@@ -2,16 +2,16 @@ package com.todorkrastev.krastevsgymrest.service;
 
 import com.todorkrastev.krastevsgymrest.model.dto.ActivityDTO;
 
-import java.util.Set;
+import java.util.List;
 
 public interface ActivityService {
-    Set<ActivityDTO> findAll();
+    List<ActivityDTO> findAll();
 
     ActivityDTO getActivityById(Long activityId);
 
-    ActivityDTO updateActivityById(Long activityId, ActivityDTO activityDTO);
+    ActivityDTO updateActivityById(Long activityId, ActivityDTO updateActivity);
 
-    Long createActivity(ActivityDTO newActivity);
+    ActivityDTO createActivity(ActivityDTO newActivity);
 
     void deleteActivityById(Long activityId);
 }
