@@ -5,10 +5,14 @@ import com.todorkrastev.krastevsgymrest.service.ActivityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/activities")
@@ -21,7 +25,15 @@ public class ActivityController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ActivityDTO>> getAllActivities() {
+    public ResponseEntity<List<ActivityDTO>> getAllActivities(@AuthenticationPrincipal UserDetails userDetails) {
+
+        if (userDetails != null) {
+            LOGGER.info("User {} is requesting all activities", userDetails.getUsername());
+            LOGGER.info("User {} has roles: {}", userDetails.getUsername(), userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(", ")));
+        } else {
+            LOGGER.info("Anonymous user is requesting all activities");
+        }
+
         List<ActivityDTO> all = this.activityService.findAll();
         return ResponseEntity.ok(all);
     }

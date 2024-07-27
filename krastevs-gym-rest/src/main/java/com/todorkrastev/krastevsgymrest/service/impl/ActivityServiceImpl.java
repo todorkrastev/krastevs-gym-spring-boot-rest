@@ -6,6 +6,8 @@ import com.todorkrastev.krastevsgymrest.model.entity.Activity;
 import com.todorkrastev.krastevsgymrest.repository.ActivityRepository;
 import com.todorkrastev.krastevsgymrest.service.ActivityService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
