@@ -2,6 +2,8 @@ package com.todorkrastev.krastevsgymrest.model.entity;
 
 import jakarta.persistence.*;
 
+import java.time.Instant;
+
 @Entity
 @Table(name = "activities")
 public class Activity {
@@ -17,6 +19,8 @@ public class Activity {
 
     @Column(name = "image_url", nullable = false)
     private String imageURL;
+
+    private Instant created = Instant.now();
 
     public Activity() {
     }
@@ -54,6 +58,15 @@ public class Activity {
 
     public Activity setImageURL(String imageURL) {
         this.imageURL = imageURL;
+        return this;
+    }
+
+    public Instant getCreated() {
+        return created;
+    }
+
+    public Activity setCreated(Instant created) {
+        this.created = created;
         return this;
     }
 }

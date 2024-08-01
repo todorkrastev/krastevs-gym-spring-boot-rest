@@ -1,9 +1,20 @@
 package com.todorkrastev.krastevsgymrest.model.dto;
 
+
+import com.todorkrastev.krastevsgymrest.validation.annotation.UniqueTitle;
+import jakarta.validation.constraints.NotBlank;
+
 public class ActivityDTO {
     private Long id;
+
+    @NotBlank(message = "Title is mandatory")
+    @UniqueTitle
     private String title;
+
+    @NotBlank(message = "Description is mandatory")
     private String description;
+
+    @NotBlank(message = "Image URL is mandatory")
     private String imageURL;
 
     public ActivityDTO() {

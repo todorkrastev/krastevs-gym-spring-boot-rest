@@ -6,8 +6,6 @@ import com.todorkrastev.krastevsgymrest.model.entity.Activity;
 import com.todorkrastev.krastevsgymrest.repository.ActivityRepository;
 import com.todorkrastev.krastevsgymrest.service.ActivityService;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +23,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<ActivityDTO> findAll() {
         return this.activityRepository
-                .findAllByOrderByIdAsc()
+                .findAllByCreatedAsc()
                 .stream()
                 .map(activity -> this.modelMapper.map(activity, ActivityDTO.class))
                 .toList();
@@ -61,5 +59,10 @@ public class ActivityServiceImpl implements ActivityService {
         this.activityRepository.findById(activityId).orElseThrow(() -> new ResourceNotFoundException("Activity", "id", activityId));
 
         this.activityRepository.deleteById(activityId);
+    }
+
+    @Override
+    public Boolean doesTitleExist(String title) {
+        return this.activityRepository.existsByTitle(title);
     }
 }

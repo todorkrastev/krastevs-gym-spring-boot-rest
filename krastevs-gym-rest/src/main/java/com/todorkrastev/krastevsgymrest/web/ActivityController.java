@@ -2,6 +2,7 @@ package com.todorkrastev.krastevsgymrest.web;
 
 import com.todorkrastev.krastevsgymrest.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgymrest.service.ActivityService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,7 @@ public class ActivityController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ActivityDTO> updateActivityById(@PathVariable("id") Long activityId, @RequestBody ActivityDTO updateActivity) {
+    public ResponseEntity<ActivityDTO> updateActivityById(@PathVariable("id") Long activityId, @Valid @RequestBody ActivityDTO updateActivity) {
         ActivityDTO activityDTO = this.activityService.updateActivityById(activityId, updateActivity);
 
         return ResponseEntity.created(
@@ -57,7 +58,7 @@ public class ActivityController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ActivityDTO> createActivity(@RequestBody ActivityDTO newActivity) {
+    public ResponseEntity<ActivityDTO> createActivity(@Valid @RequestBody ActivityDTO newActivity) {
         ActivityDTO activityDTO = this.activityService.createActivity(newActivity);
 
         return ResponseEntity.created(

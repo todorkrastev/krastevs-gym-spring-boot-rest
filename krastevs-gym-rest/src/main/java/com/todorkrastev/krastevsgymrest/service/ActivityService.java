@@ -14,4 +14,6 @@ public interface ActivityService {
     ActivityDTO createActivity(ActivityDTO newActivity);
 
     void deleteActivityById(Long activityId);
+
+    Boolean doesTitleExist(String title);
 }

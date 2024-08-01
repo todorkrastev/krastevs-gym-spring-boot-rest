@@ -9,6 +9,8 @@ import java.util.List;
 
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
-    @Query("select a from Activity a order by a.id asc")
-    List<Activity> findAllByOrderByIdAsc();
+    @Query("select a from Activity a order by a.created asc")
+    List<Activity> findAllByCreatedAsc();
+
+    Boolean existsByTitle(String title);
 }

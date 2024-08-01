@@ -46,7 +46,7 @@ class ActivityServiceImplTest {
 
     @Test
     void testFindAll() {
-        when(activityRepository.findAllByOrderByIdAsc()).thenReturn(List.of(activity));
+        when(activityRepository.findAllByCreatedAsc()).thenReturn(List.of(activity));
         when(modelMapper.map(activity, ActivityDTO.class)).thenReturn(activityDTO);
 
         List<ActivityDTO> result = activityService.findAll();
