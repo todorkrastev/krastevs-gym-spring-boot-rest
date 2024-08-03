@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,17 +36,24 @@ class ActivityServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        activity = new Activity();
-        activity.setId(1L);
-        activity.setTitle("Yoga");
+        activity =
+                new Activity()
+                        .setId(1L)
+                        .setTitle("Yoga")
+                        .setDescription("Yoga is a group of physical, mental, and spiritual practices or disciplines that originated in ancient India.")
+                        .setImageURL("https://www.yoga.com/yoga.jpg")
+                        .setCreated(Instant.now());
 
-        activityDTO = new ActivityDTO();
-        activityDTO.setId(1L);
-        activityDTO.setTitle("Yoga");
+        activityDTO =
+                new ActivityDTO()
+                        .setId(1L)
+                        .setTitle("Yoga")
+                        .setDescription("Yoga is a group of physical, mental, and spiritual practices or disciplines that originated in ancient India.")
+                        .setImageURL("https://www.yoga.com/yoga.jpg");
     }
 
     @Test
-    void testFindAll() {
+    void testFindAllAsRegisteredUser() {
         when(activityRepository.findAllByCreatedAsc()).thenReturn(List.of(activity));
         when(modelMapper.map(activity, ActivityDTO.class)).thenReturn(activityDTO);
 
@@ -54,6 +62,18 @@ class ActivityServiceImplTest {
         assertEquals(1, result.size());
         assertEquals(activityDTO, result.getFirst());
     }
+
+    @Test
+    void testFindAllAsAnonymousUser() {
+        when(activityRepository.findAllByCreatedAsc()).thenReturn(List.of(activity));
+        when(modelMapper.map(activity, ActivityDTO.class)).thenReturn(activityDTO);
+
+        List<ActivityDTO> result = activityService.findAll();
+
+        assertEquals(1, result.size());
+        assertEquals(activityDTO, result.getFirst());
+    }
+
 
     @Test
     void testGetActivityById() {
@@ -116,5 +136,27 @@ class ActivityServiceImplTest {
         when(activityRepository.findById(1L)).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> activityService.deleteActivityById(1L));
+    }
+
+    @Test
+    void testDoesTitleExist() {
+        String title = "Yoga";
+        when(activityRepository.existsByTitle(title)).thenReturn(true);
+
+        Boolean result = activityService.doesTitleExist(title);
+
+        assertTrue(result);
+        verify(activityRepository, times(1)).existsByTitle(title);
+    }
+
+    @Test
+    void testDoesTitleExistWhenTitleDoesNotExist() {
+        String title = "Pilates";
+        when(activityRepository.existsByTitle(title)).thenReturn(false);
+
+        Boolean result = activityService.doesTitleExist(title);
+
+        assertFalse(result);
+        verify(activityRepository, times(1)).existsByTitle(title);
     }
 }
