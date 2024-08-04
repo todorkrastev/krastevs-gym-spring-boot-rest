@@ -21,8 +21,10 @@ server:
 
 #logging:
 #    level:
-#      org.hibernate.SQL: DEBUG
-#      org.hibernate.orm.jdbc.bind: TRACE
+#        org:
+#            springframework: DEBUG
+#            hibernate.SQL: DEBUG
+#            hibernate.orm.jdbc.bind: TRACE
 
 jwt:
     secret: ${JWT_SECRET:d2aUj+XLQy8SEEE/nCw7LW3OpCKuPcycveYiU0tQsFwp1fDxC1GcTx5Vrgi/BBmlFOyuITNrc5Tt3Zj2Jec/Zw==}

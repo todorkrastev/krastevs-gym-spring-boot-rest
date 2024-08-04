@@ -41,6 +41,7 @@ public class ActivityServiceImpl implements ActivityService {
         this.activityRepository.findById(activityId).orElseThrow(() -> new ResourceNotFoundException("Activity", "id", activityId));
 
         Activity activity = this.modelMapper.map(updateActivity, Activity.class);
+        activity.setId(activityId);
         Activity saved = this.activityRepository.save(activity);
 
         return this.modelMapper.map(saved, ActivityDTO.class);

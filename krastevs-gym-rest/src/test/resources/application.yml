@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:krastevs_gym_rest_db;sql.syntax_mys=true
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    defer-datasource-initialization: true
+
+#logging:
+#  level:
+#    org:
+#      springframework: DEBUG
+#      hibernate.SQL: DEBUG
+#      hibernate.orm.jdbc.bind: TRACE
+
+jwt:
+  secret: ${JWT_SECRET:d2aUj+XLQy8SEEE/nCw7LW3OpCKuPcycveYiU0tQsFwp1fDxC1GcTx5Vrgi/BBmlFOyuITNrc5Tt3Zj2Jec/Zw==}
