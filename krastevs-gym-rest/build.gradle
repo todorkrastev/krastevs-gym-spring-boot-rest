@@ -30,7 +30,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
     runtimeOnly 'com.mysql:mysql-connector-j'
-    testImplementation 'org.hsqldb:hsqldb'
+    runtimeOnly 'org.hsqldb:hsqldb'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
