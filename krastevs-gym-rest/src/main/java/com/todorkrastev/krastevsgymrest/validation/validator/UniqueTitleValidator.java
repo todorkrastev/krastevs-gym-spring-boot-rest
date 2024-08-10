@@ -1,24 +1,26 @@
 package com.todorkrastev.krastevsgymrest.validation.validator;
 
+import com.todorkrastev.krastevsgymrest.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgymrest.service.ActivityService;
 import com.todorkrastev.krastevsgymrest.validation.annotation.UniqueTitle;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class UniqueTitleValidator implements ConstraintValidator<UniqueTitle, String> {
-    private final ActivityService activityService;
+public class UniqueTitleValidator implements ConstraintValidator<UniqueTitle, ActivityDTO> {
 
-    public UniqueTitleValidator(ActivityService activityService) {
-        this.activityService = activityService;
-    }
+    @Autowired
+    private ActivityService activityService;
 
     @Override
     public void initialize(UniqueTitle constraintAnnotation) {
-        ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
-    public boolean isValid(String title, ConstraintValidatorContext context) {
-        return title != null && !activityService.doesTitleExist(title);
+    public boolean isValid(ActivityDTO activityDTO, ConstraintValidatorContext context) {
+        if (activityDTO.getId() == null) {
+            return true;
+        }
+        return activityService.isTitleUnique(activityDTO.getTitle(), activityDTO.getId());
     }
 }

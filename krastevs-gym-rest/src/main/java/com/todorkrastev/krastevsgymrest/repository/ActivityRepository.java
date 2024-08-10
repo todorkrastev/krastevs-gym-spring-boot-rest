@@ -13,4 +13,6 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findAllByCreatedAsc();
 
     Boolean existsByTitle(String title);
+
+    boolean existsByTitleAndIdNot(String title, Long id);
 }

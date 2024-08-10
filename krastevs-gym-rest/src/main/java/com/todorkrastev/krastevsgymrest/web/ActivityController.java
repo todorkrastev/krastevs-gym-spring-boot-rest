@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgymrest.web;
 
+import com.todorkrastev.krastevsgymrest.model.dto.ActivityCreateDTO;
 import com.todorkrastev.krastevsgymrest.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgymrest.service.ActivityService;
 import jakarta.validation.Valid;
@@ -58,8 +59,8 @@ public class ActivityController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<ActivityDTO> createActivity(@Valid @RequestBody ActivityDTO newActivity) {
-        ActivityDTO activityDTO = this.activityService.createActivity(newActivity);
+    public ResponseEntity<ActivityCreateDTO> createActivity(@Valid @RequestBody ActivityCreateDTO activityCreateDTO) {
+        ActivityCreateDTO activityDTO = this.activityService.createActivity(activityCreateDTO);
 
         return ResponseEntity.created(
                 ServletUriComponentsBuilder

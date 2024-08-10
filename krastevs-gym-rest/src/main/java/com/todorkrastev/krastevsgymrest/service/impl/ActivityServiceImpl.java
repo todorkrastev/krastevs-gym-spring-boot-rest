@@ -1,6 +1,7 @@
 package com.todorkrastev.krastevsgymrest.service.impl;
 
 import com.todorkrastev.krastevsgymrest.exception.ResourceNotFoundException;
+import com.todorkrastev.krastevsgymrest.model.dto.ActivityCreateDTO;
 import com.todorkrastev.krastevsgymrest.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgymrest.model.entity.Activity;
 import com.todorkrastev.krastevsgymrest.repository.ActivityRepository;
@@ -48,11 +49,11 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public ActivityDTO createActivity(ActivityDTO newActivity) {
-        Activity activity = this.modelMapper.map(newActivity, Activity.class);
+    public ActivityCreateDTO createActivity(ActivityCreateDTO activityCreateDTO) {
+        Activity activity = this.modelMapper.map(activityCreateDTO, Activity.class);
         Activity saved = this.activityRepository.save(activity);
 
-        return this.modelMapper.map(saved, ActivityDTO.class);
+        return this.modelMapper.map(saved, ActivityCreateDTO.class);
     }
 
     @Override
@@ -65,5 +66,10 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Boolean doesTitleExist(String title) {
         return this.activityRepository.existsByTitle(title);
+    }
+
+    @Override
+    public boolean isTitleUnique(String title, Long id) {
+        return !this.activityRepository.existsByTitleAndIdNot(title, id);
     }
 }

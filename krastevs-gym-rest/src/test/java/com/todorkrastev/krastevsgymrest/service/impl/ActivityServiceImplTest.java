@@ -1,6 +1,7 @@
 package com.todorkrastev.krastevsgymrest.service.impl;
 
 import com.todorkrastev.krastevsgymrest.exception.ResourceNotFoundException;
+import com.todorkrastev.krastevsgymrest.model.dto.ActivityCreateDTO;
 import com.todorkrastev.krastevsgymrest.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgymrest.model.entity.Activity;
 import com.todorkrastev.krastevsgymrest.repository.ActivityRepository;
@@ -33,6 +34,7 @@ class ActivityServiceImplTest {
 
     private Activity activity;
     private ActivityDTO activityDTO;
+    private ActivityCreateDTO activityCreateDTO;
 
     @BeforeEach
     void setUp() {
@@ -46,6 +48,13 @@ class ActivityServiceImplTest {
 
         activityDTO =
                 new ActivityDTO()
+                        .setId(1L)
+                        .setTitle("Yoga")
+                        .setDescription("Yoga is a group of physical, mental, and spiritual practices or disciplines that originated in ancient India.")
+                        .setImageURL("https://www.yoga.com/yoga.jpg");
+
+        activityCreateDTO =
+                new ActivityCreateDTO()
                         .setId(1L)
                         .setTitle("Yoga")
                         .setDescription("Yoga is a group of physical, mental, and spiritual practices or disciplines that originated in ancient India.")
@@ -113,13 +122,13 @@ class ActivityServiceImplTest {
 
     @Test
     void testCreateActivity() {
-        when(modelMapper.map(activityDTO, Activity.class)).thenReturn(activity);
+        when(modelMapper.map(activityCreateDTO, Activity.class)).thenReturn(activity);
         when(activityRepository.save(activity)).thenReturn(activity);
-        when(modelMapper.map(activity, ActivityDTO.class)).thenReturn(activityDTO);
+        when(modelMapper.map(activity, ActivityCreateDTO.class)).thenReturn(activityCreateDTO);
 
-        ActivityDTO result = activityService.createActivity(activityDTO);
+        ActivityCreateDTO result = activityService.createActivity(activityCreateDTO);
 
-        assertEquals(activityDTO, result);
+        assertEquals(activityCreateDTO, result);
     }
 
     @Test
@@ -158,5 +167,29 @@ class ActivityServiceImplTest {
 
         assertFalse(result);
         verify(activityRepository, times(1)).existsByTitle(title);
+    }
+
+    @Test
+    void testIsTitleUniqueWhenTitleIsUnique() {
+        String title = "UniqueTitle";
+        Long id = 1L;
+
+        when(activityRepository.existsByTitleAndIdNot(title, id)).thenReturn(false);
+
+        boolean result = activityService.isTitleUnique(title, id);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void testIsTitleUniqueWhenTitleIsNotUnique() {
+        String title = "NonUniqueTitle";
+        Long id = 1L;
+
+        when(activityRepository.existsByTitleAndIdNot(title, id)).thenReturn(true);
+
+        boolean result = activityService.isTitleUnique(title, id);
+
+        assertFalse(result);
     }
 }

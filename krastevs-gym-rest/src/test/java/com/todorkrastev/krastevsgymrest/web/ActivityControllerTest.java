@@ -1,5 +1,6 @@
 package com.todorkrastev.krastevsgymrest.web;
 
+import com.todorkrastev.krastevsgymrest.model.dto.ActivityCreateDTO;
 import com.todorkrastev.krastevsgymrest.model.dto.ActivityDTO;
 import com.todorkrastev.krastevsgymrest.service.ActivityService;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,15 +82,15 @@ class ActivityControllerTest {
 
     @Test
     void testCreateActivity() {
-        ActivityDTO activityDTO = new ActivityDTO().setId(1L).setTitle("Yoga");
-        when(activityService.createActivity(any(ActivityDTO.class))).thenReturn(activityDTO);
+        ActivityCreateDTO activityCreateDTO = new ActivityCreateDTO().setId(1L).setTitle("Yoga");
+        when(activityService.createActivity(any(ActivityCreateDTO.class))).thenReturn(activityCreateDTO);
 
-        ResponseEntity<ActivityDTO> response = activityController.createActivity(activityDTO);
+        ResponseEntity<ActivityCreateDTO> response = activityController.createActivity(activityCreateDTO);
 
         assertEquals(201, response.getStatusCode().value());
         assertNotNull(response.getBody());
         assertEquals("Yoga", response.getBody().getTitle());
-        verify(activityService, times(1)).createActivity(any(ActivityDTO.class));
+        verify(activityService, times(1)).createActivity(any(ActivityCreateDTO.class));
     }
 
     @Test
