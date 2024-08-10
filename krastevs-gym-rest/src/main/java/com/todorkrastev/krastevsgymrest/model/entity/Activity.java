@@ -17,7 +17,7 @@ public class Activity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "image_url", columnDefinition = "TEXT", nullable = false)
     private String imageURL;
 
     private Instant created = Instant.now();
