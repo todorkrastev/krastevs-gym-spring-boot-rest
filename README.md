@@ -1,31 +1,12 @@
-<h1 align="center">Krastev's gym</h1>
+# Krastev's gym
 
-<h3>Used technologies:</h3>
-<div>
-  <ul>
-    <li>
-      <a href="https://docs.spring.io/spring-framework/reference/index.html" target="_blank">Spring Framework</a>
-    </li>
-    <li>
-      <a href="https://docs.spring.io/spring-boot/documentation.html" target="_blank">Spring Boot</a>
-    </li>
-    <li>
-      <a href="https://docs.spring.io/spring-data/jpa/docs/current-SNAPSHOT/reference/html/#reference" target="_blank">Spring Data</a>
-    </li>
-    <li>
-      <a href="https://docs.spring.io/spring-security/reference/index.html" target="_blank">Spring Security</a>
-    </li>
-    <li>
-      <a href="https://dev.mysql.com/doc/refman/8.4/en/" target="_blank">MySQL</a>
-    </li>
-  </ul>
-</div>
+## Used technologies:
+* [Spring Framework](https://docs.spring.io/spring-framework/reference/index.html)
+* [Spring Boot](https://docs.spring.io/spring-boot/documentation.html)
+* [Spring Data](https://docs.spring.io/spring-data/jpa/docs/current-SNAPSHOT/reference/html/#reference)
+* [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
+* [MySQL](https://dev.mysql.com/doc/refman/8.4/en/)
 
-<h3>Krastev's Gym App is deployed on:</h3>
-<div>
-  <ul>
-    <li>
-      <a href="" target="_blank">TO DO</a>
-    </li>
-  </ul>
-</div>
+
+## Krastev's Gym App is deployed on:
+* [TODO]()
