@@ -2,8 +2,8 @@ spring:
     datasource:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/krastevs_gym_rest_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
-        username: ${MYSQL_USER:${db_username}}
-        password: ${MYSQL_PASSWORD:${db_password}}
+        username: ${MYSQL_USER:root}
+        password: ${MYSQL_PASSWORD:V170sh@229O}
     #    sql:
     #        init:
     #            mode: always
