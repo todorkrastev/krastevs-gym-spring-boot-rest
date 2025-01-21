@@ -6,6 +6,7 @@
 * [Spring Data](https://docs.spring.io/spring-data/jpa/docs/current-SNAPSHOT/reference/html/#reference)
 * [Spring Security](https://docs.spring.io/spring-security/reference/index.html)
 * [MySQL](https://dev.mysql.com/doc/refman/8.4/en/)
+* [Swagger](https://swagger.io/docs/)
 
 
 ## Krastev's Gym App is deployed on:

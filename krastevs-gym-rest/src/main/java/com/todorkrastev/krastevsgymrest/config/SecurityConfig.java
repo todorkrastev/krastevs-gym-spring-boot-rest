@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorize ->
-                                authorize.requestMatchers(HttpMethod.GET, "/api/v1/activities/**").permitAll()
+                                authorize.requestMatchers(HttpMethod.GET, "/api/v1/activities/**", "/swagger-ui/**", "swagger-ui.html", "/v3/api-docs/**").permitAll()
                                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
